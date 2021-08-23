@@ -27,7 +27,7 @@ class InfluxDB() :
     
     for temp_index in range(0, 4): 
       try:
-        temperature = float(temperature_body[temp_index])):
+        temperature = float(temperature_body[temp_index])
         if temperature> -9998 :
           p = p.field(f"ch{temp_index}" , temperature)
       except:
