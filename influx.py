@@ -16,39 +16,22 @@ class InfluxDB() :
     
     self.write_api = influxClient.write_api(write_options=SYNCHRONOUS)
 
-  def send(self, sound_level) : 
+  def send(self, temperature_body) : 
     '''
       Author: F. Tang
       Last Revision: July 7th, 2020
       Description: Send sound level data over to InfluxDB
     '''  
-    p = Point("ambient").tag("location", "door").field("sound", sound_level)
+    p = Point("temperature").tag("box_id", "tc01")
               
-    try:      
-      self.write_api.write(bucket="production", record=p)
-    except : 
-      pass
-
-
     
-    temperature_body = []
-    if temperatures[0] is not None :
-      temperature_body = [
-        {"measurement": "temperature",
-        "tags": {"host": "ambient"},
-          "fields": {"value": round(temperatures[0], 2)}
-        }]
-    
-    
-    for tempIndex in range(1, 4):
-      if temperatures[tempIndex] is not None :
-        temperature_body.append({"measurement": "temperature_0" + str(tempIndex),
-        "tags": {"host": "furnace"},
-          "fields": {"value": round(temperatures[tempIndex], 2)}
-        })
+    for temp_index in range(0, 4):      
+      if temperature_body[temp_index] > -9998 :
+        p = p.field(f"ch{temp_index}" , float(temperature_body[temp_index]))
           
+
     try:  
       if temperature_body:      
-        self.influxClient.write_points(temperature_body, retention_policy='develop')
+        self.write_api.write(bucket="production", record=p)
     except : 
       pass
