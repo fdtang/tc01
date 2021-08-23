@@ -25,9 +25,13 @@ class InfluxDB() :
     p = Point("temperature").tag("box_id", "tc01")
               
     
-    for temp_index in range(0, 4):      
-      if temperature_body[temp_index] > -9998 :
-        p = p.field(f"ch{temp_index}" , float(temperature_body[temp_index]))
+    for temp_index in range(0, 4): 
+      try:
+        temperature = float(temperature_body[temp_index]):
+        if temperature> -9998 :
+          p = p.field(f"ch{temp_index}" , temperature)
+      except:
+        pass
           
 
     try:  
