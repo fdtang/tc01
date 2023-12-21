@@ -9,8 +9,8 @@ class InfluxDB() :
     '''
     def __init__(self) :
 
-        influxClient = InfluxDBClient(url="http://192.168.1.241",
-                                      token="bdnqhThdNULGU8tXcmobINXlNVpzDfEc0UWwpydDlxL_hB_q5-KJEqKhkeBupg4jZZm96CeyjMQFDC2swJNw3A==",
+        influxClient = InfluxDBClient(url="http://192.168.1.22",
+                                      token="KvyHf3bLljt6g-8Dr18Il5RmFGyCeMluMLJHRrYJOBRid1DIjau02ry-tNctA4bUDIu-bB-64l1dT6AzotkVcQ==",
                                       org="HIPtec")
 
         self.write_api = influxClient.write_api(write_options=SYNCHRONOUS)
