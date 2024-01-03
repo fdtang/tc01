@@ -17,7 +17,6 @@ def select_hat_device(filter_by_id):
         filter_by_id (int): If this is :py:const:`HatIDs.ANY` return all DAQ
             HATs found.  Otherwise, return only DAQ HATs with ID matching this
             value.
-
     Returns:
         int: The address of the selected device.
 
