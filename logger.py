@@ -35,11 +35,13 @@ if __name__ == '__main__':
 
         while True:
             temperatures = {0: None, 1:None, 2: None, 3: None}
+
             for channel in channels:
                 value = hat.t_in_read(channel)
                 if value not in [mcc134.OPEN_TC_VALUE, mcc134.OVERRANGE_TC_VALUE,  mcc134.COMMON_MODE_TC_VALUE] :
                     temperatures[channel] = float(value)
 
+            print(f'{temperatures}\n')
             influx.send(temperatures)
             time.sleep(1 - (time.time() - starttime) % 1)
 
