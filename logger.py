@@ -41,7 +41,6 @@ if __name__ == '__main__':
                 if value not in [mcc134.OPEN_TC_VALUE, mcc134.OVERRANGE_TC_VALUE,  mcc134.COMMON_MODE_TC_VALUE] :
                     temperatures[channel] = float(value)
 
-            print(f'{temperatures}\n')
             influx.send(temperatures)
             time.sleep(1 - (time.time() - starttime) % 1)
 
